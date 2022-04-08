@@ -1,7 +1,4 @@
 #include "Zm5202_Flash.h"
-//TODO Calculate CRC32 FOR FLASH AND USE THE CALCULATED VALUES
-//MAKE SURE NVR CALIBRATION DATA GETS RESERVED/PROTECTED OR NOT OVERWRITED WITH BAD VALUES
-//GET RID OF GLOBAL VARIABLES
 
 
 uint8_t arr[]={1,3,0,21,233};//ZWAVE  REQUEST
@@ -69,6 +66,7 @@ void TxZwave()
 			k=0;
 		}
 }
+
 void Zm5202Flash_Lib_Init()
 {
 
@@ -126,7 +124,6 @@ void ReadSignature()
 
 	 for(uint8_t i=0;i<7;i++)
 	 {
-
 		 b=i;
 
 		 ZM_5205cmd.GneralCmd.b1=i;
@@ -135,9 +132,8 @@ void ReadSignature()
 
 	 }
 
-
-
 }
+
 void CheckState()
 {
 
@@ -166,6 +162,7 @@ void CheckState()
      HAL_Delay(t);//wait for flash
 
 }
+
 void Reset()
 {
 
@@ -249,44 +246,44 @@ void WriteFlash(uint8_t sector)
 {
 	Txdone = false;
 	Sector =sector;
-		ZM_5205cmd.GneralCmd.b0=0x20;
-		ZM_5205cmd.GneralCmd.b1=sector;
-		ZM_5205cmd.GneralCmd.b2=0xFF;
-		ZM_5205cmd.GneralCmd.b3=0xFF;
+	ZM_5205cmd.GneralCmd.b0=0x20;
+	ZM_5205cmd.GneralCmd.b1=sector;
+	ZM_5205cmd.GneralCmd.b2=0xFF;
+	ZM_5205cmd.GneralCmd.b3=0xFF;
 
-		SpiRxArr[0]=0;
-		SpiRxArr[1]=0;
-		SpiRxArr[2]=0;
-		SpiRxArr[3]=0;
-		SpiRxArr[4]=0;
+	SpiRxArr[0]=0;
+	SpiRxArr[1]=0;
+	SpiRxArr[2]=0;
+	SpiRxArr[3]=0;
+	SpiRxArr[4]=0;
 
-		HAL_Delay(t);
-		HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b0,&SpiRxArr[0],1);
-		HAL_Delay(t);//wait for flash
-		HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b1,&SpiRxArr[1],1);
-		HAL_Delay(t);
-		HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b2,&SpiRxArr[2],1);
-	    HAL_Delay(t);//wait for flash
-	    HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b3,&SpiRxArr[3],1);
-	    Txdone = true;
-		HAL_Delay(t);//wait for flash*/
+	HAL_Delay(t);
+	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b0,&SpiRxArr[0],1);
+	HAL_Delay(t);//wait for flash
+	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b1,&SpiRxArr[1],1);
+	HAL_Delay(t);
+	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b2,&SpiRxArr[2],1);
+	HAL_Delay(t);//wait for flash
+	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b3,&SpiRxArr[3],1);
+	Txdone = true;
+	HAL_Delay(t);//wait for flash*/
 
-		FlashBusy=true;
-		do
-		{
-			CheckState();
-			//faultInc++;
-			//if(faultInc>1000)
-			//{
+	FlashBusy=true;
+	do
+	{
+		CheckState();
+		//faultInc++;
+		//if(faultInc>1000)
+		//{
 				//char string[5]="Fault";
 				//HAL_UART_Transmit_IT(&ZW_Uart,&string[0],5);
-			//	faultInc=0;
-			//}
-			//HAL_Delay(10);
-		}
-		while(FlashBusy);
+		//	faultInc=0;
+		//}
+		//HAL_Delay(10);
+	}
+	while(FlashBusy);
 
-		//HAL_Delay(200);//wait for flash*/
+	//HAL_Delay(200);//wait for flash*/
 
 
 }
@@ -312,9 +309,9 @@ void ReadFlash(uint8_t sector)
 	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b1,&SpiRxArr[1],1);
 	HAL_Delay(t);
 	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b2,&SpiRxArr[2],1);
-    HAL_Delay(t);//wait for flash
-    HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b3,&SpiRxArr[3],1);
-    Txdone = true;
+    	HAL_Delay(t);//wait for flash
+    	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b3,&SpiRxArr[3],1);
+    	Txdone = true;
 	HAL_Delay(t);//wait for flash
 
 
@@ -349,94 +346,95 @@ void ContinueRead()//flash or SRAM
 {
 	Txdone = false;
 
-		ZM_5205cmd.GneralCmd.b0=0xA0;
-		ZM_5205cmd.GneralCmd.b1=0;
-		ZM_5205cmd.GneralCmd.b2=0;
-		ZM_5205cmd.GneralCmd.b3=0;
+	ZM_5205cmd.GneralCmd.b0=0xA0;
+	ZM_5205cmd.GneralCmd.b1=0;
+	ZM_5205cmd.GneralCmd.b2=0;
+	ZM_5205cmd.GneralCmd.b3=0;
 
-		SpiRxArr[0]=0;
-		SpiRxArr[1]=0;
-		SpiRxArr[2]=0;
-		SpiRxArr[3]=0;
-		SpiRxArr[4]=0;
+	SpiRxArr[0]=0;
+	SpiRxArr[1]=0;
+	SpiRxArr[2]=0;
+	SpiRxArr[3]=0;
+	SpiRxArr[4]=0;
 
-		HAL_Delay(t);
-		HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b0,&SpiRxArr[0],1);
-		HAL_Delay(t);//wait for flash
-		HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b1,&SpiRxArr[1],1);
-		HAL_Delay(t);
-		HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b2,&SpiRxArr[2],1);
-		HAL_Delay(t);//wait for flash
-		HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b3,&SpiRxArr[3],1);
-		Txdone = true;
-		contReadCmd =true;
-		HAL_Delay(t);//wait for flash*/
+	HAL_Delay(t);
+	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b0,&SpiRxArr[0],1);
+	HAL_Delay(t);//wait for flash
+	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b1,&SpiRxArr[1],1);
+	HAL_Delay(t);
+	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b2,&SpiRxArr[2],1);
+	HAL_Delay(t);//wait for flash
+	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b3,&SpiRxArr[3],1);
+	Txdone = true;
+	contReadCmd =true;
+	HAL_Delay(t);//wait for flash*/
 }
 
 void EraseChip()
 {
 
-		ZM_5205cmd.GneralCmd.b0=0x0A;
-		ZM_5205cmd.GneralCmd.b1=0x00;
-		ZM_5205cmd.GneralCmd.b2=0x00;
-		ZM_5205cmd.GneralCmd.b3=0x00;
+	ZM_5205cmd.GneralCmd.b0=0x0A;
+	ZM_5205cmd.GneralCmd.b1=0x00;
+	ZM_5205cmd.GneralCmd.b2=0x00;
+	ZM_5205cmd.GneralCmd.b3=0x00;
 
-		SpiRxArr[0]=0;
-		SpiRxArr[1]=0;
-		SpiRxArr[2]=0;
-		SpiRxArr[3]=0;
-		SpiRxArr[4]=0;
+	SpiRxArr[0]=0;
+	SpiRxArr[1]=0;
+	SpiRxArr[2]=0;
+	SpiRxArr[3]=0;
+	SpiRxArr[4]=0;
 
-		HAL_Delay(t);
-		HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b0,&SpiRxArr[0],1);
-		HAL_Delay(t);//wait for flash
-		HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b1,&SpiRxArr[1],1);
-		HAL_Delay(t);
-		HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b2,&SpiRxArr[2],1);
-	    HAL_Delay(t);//wait for flash
-	    HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b3,&SpiRxArr[3],1);
-	   	HAL_Delay(t);//wait for flash
+	HAL_Delay(t);
+	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b0,&SpiRxArr[0],1);
+	HAL_Delay(t);//wait for flash
+	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b1,&SpiRxArr[1],1);
+	HAL_Delay(t);
+	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b2,&SpiRxArr[2],1);
+	HAL_Delay(t);//wait for flash
+	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b3,&SpiRxArr[3],1);
+	HAL_Delay(t);//wait for flash
 
-	   	FlashBusy=true;
-	   	do
-	   	{
-	   		CheckState();
-	   	}
-	    while(FlashBusy);
+	FlashBusy=true;
+	
+	 do
+	 {
+	   CheckState();
+	 }
+	 while(FlashBusy);
 }
 void EraseSector(uint8_t sector)
 {
 	Txdone = false;
-		Sector =sector;
-		ZM_5205cmd.GneralCmd.b0=0x0B;
-		ZM_5205cmd.GneralCmd.b1=sector;
-		ZM_5205cmd.GneralCmd.b2=0xFF;
-		ZM_5205cmd.GneralCmd.b3=0xFF;
+	Sector =sector;
+	ZM_5205cmd.GneralCmd.b0=0x0B;
+	ZM_5205cmd.GneralCmd.b1=sector;
+	ZM_5205cmd.GneralCmd.b2=0xFF;
+	ZM_5205cmd.GneralCmd.b3=0xFF;
 
-		SpiRxArr[0]=0;
-		SpiRxArr[1]=0;
-		SpiRxArr[2]=0;
-		SpiRxArr[3]=0;
-		SpiRxArr[4]=0;
+	SpiRxArr[0]=0;
+	SpiRxArr[1]=0;
+	SpiRxArr[2]=0;
+	SpiRxArr[3]=0;
+	SpiRxArr[4]=0;
 
-		HAL_Delay(t);
+	HAL_Delay(t);
 
-		HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b0,&SpiRxArr[0],1);
-		HAL_Delay(t);//wait for flash
-		HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b1,&SpiRxArr[1],1);
-		HAL_Delay(t);
-		HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b2,&SpiRxArr[2],1);
-	    HAL_Delay(t);//wait for flash
-	    HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b3,&SpiRxArr[3],1);
-	    Txdone = true;
-		HAL_Delay(t);//wait for flash*/
+	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b0,&SpiRxArr[0],1);
+	HAL_Delay(t);//wait for flash
+	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b1,&SpiRxArr[1],1);
+	HAL_Delay(t);
+	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b2,&SpiRxArr[2],1);
+	HAL_Delay(t);//wait for flash
+	HAL_SPI_TransmitReceive_IT(&ZW_Spi,&ZM_5205cmd.GneralCmd.b3,&SpiRxArr[3],1);
+	Txdone = true;
+	HAL_Delay(t);//wait for flash*/
 
-		FlashBusy=true;
-		do
-		{
-			CheckState();
-		}
-		while(FlashBusy);
+	FlashBusy=true;
+	do
+	{
+		CheckState();
+	}
+	while(FlashBusy);
 }
 
 void DisableEoosMode()
@@ -496,7 +494,7 @@ void ClearAutoProg1()
 
 	FlashBusy=true;
 	do
-    {
+    	{
 		CheckState();
 	}
 	while(FlashBusy);
@@ -817,7 +815,7 @@ void RunCRC()//takes 22ms
 		CRCbusy=true;
 		CRC_Failed=true;
 		do
-	    {
+	        {
 			CheckState();
 		}
 		while(CRCbusy && !CRCDone);
@@ -979,32 +977,32 @@ void WriteZwaveCodeToFlash()
 void WriteZwaveCodeToFlash1()
 {
 
-for(int j=0;j<64;j++)
-{
-	EraseSector(j);
-}
+	for(int j=0;j<64;j++)
+	{
+		EraseSector(j);
+	}
 
-		for(int j=0;j<36;j++)
+	for(int j=0;j<36;j++)
+	{
+		//EraseSector(j);
+		// HAL_UART_Transmit_IT(&ZW_Uart,&j,1);
+
+		for(uint16_t i=0;i<Srambuffersize;i++)
 		{
-			//EraseSector(j);
-			// HAL_UART_Transmit_IT(&ZW_Uart,&j,1);
-
-			 for(uint16_t i=0;i<Srambuffersize;i++)
-			 {
-				 if(((j*Srambuffersize)+i)<72011)
-				 {
-					if(barr[(j*Srambuffersize)+i]!=255)
-					{
+			if(((j*Srambuffersize)+i)<72011)
+			{
+				if(barr[(j*Srambuffersize)+i]!=255)
+				{
 						WriteSRAM((i),barr[(j*Srambuffersize)+i]);
 						WriteFlash(j);
-					}
+				}
 
-				 }
-
-			 }
-
+			}
 
 		}
+
+
+	}
 
 
 }
@@ -1023,9 +1021,9 @@ void ReadAllFlash()
 void Test()
 {
 	HAL_GPIO_WritePin(ZW_RESET_GPIO_Port,ZW_RESET_Pin,SET);
-		HAL_GPIO_WritePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin,SET);
-		HAL_GPIO_WritePin(LED_RED_GPIO_Port,LED_RED_Pin,SET);
-		HAL_GPIO_WritePin(LED_ORANGE_GPIO_Port,LED_ORANGE_Pin,SET);
+	HAL_GPIO_WritePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin,SET);
+	HAL_GPIO_WritePin(LED_RED_GPIO_Port,LED_RED_Pin,SET);
+	HAL_GPIO_WritePin(LED_ORANGE_GPIO_Port,LED_ORANGE_Pin,SET);
 
 
 	SpiSetup();
@@ -1203,22 +1201,22 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
 	    	  }
 
 	    	  if(SpiRxArr[1]==0xF1 &&SpiRxArr[2]==LockBitReg && Txdone)//READ LOCKBITS
-		      {
-		    	 	 //HAL_GPIO_WritePin(LED_ORANGE_GPIO_Port,LED_ORANGE_Pin,RESET);
-		    	 	 //HAL_UART_Transmit_IT(&ZW_Uart,&SpiRxArr[3],1);
-		      }
-		      if(SpiRxArr[1]==0xF2 &&SpiRxArr[2]==0x00 && Txdone)//READ NVR CONTENETS
-		      {
-		    	 	 //HAL_GPIO_WritePin(LED_ORANGE_GPIO_Port,LED_ORANGE_Pin,RESET);
+		  {
+		    	//HAL_GPIO_WritePin(LED_ORANGE_GPIO_Port,LED_ORANGE_Pin,RESET);
+		    	 //HAL_UART_Transmit_IT(&ZW_Uart,&SpiRxArr[3],1);
+		  }
+		  if(SpiRxArr[1]==0xF2 &&SpiRxArr[2]==0x00 && Txdone)//READ NVR CONTENETS
+		  {
+		    	 //HAL_GPIO_WritePin(LED_ORANGE_GPIO_Port,LED_ORANGE_Pin,RESET);
 		    	  nvrBytesZm5202[nvrcount] =SpiRxArr[3];
 		    	  nvrcount++;
-		    	 	 //HAL_UART_Transmit_IT(&ZW_Uart,&SpiRxArr[3],1);
-		      }
+		    	 //HAL_UART_Transmit_IT(&ZW_Uart,&SpiRxArr[3],1);
+		  }
 	    	  if(contReadCmd  && Txdone)//Continue read checksum and read flash functions
-		      {
+		  {
 		    		 // HAL_UART_Transmit_IT(&ZW_Uart,&SpiRxArr[1],3);
 		    	  contReadCmd = false;
-		      }
+		  }
 
 
 
