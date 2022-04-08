@@ -4,11 +4,8 @@
 
 
 #include "main.h"
-
-
 #include "SerialApi_Boot_US.h"
 #include "SerialApi_Boot_EU.h"
-
 #include "stdbool.h"
 #include "spi.h"
 #include "usart.h"
@@ -23,15 +20,15 @@ typedef union Num16_
 	uint8_t ar[2];
 	uint16_t n;
 }Num16;
+
 typedef struct ZM5202_CMD_Struct_
 {
 	uint8_t b0;
 	uint8_t b1;
 	uint8_t b2;
 	uint8_t b3;
-
-
 }ZM5202_CMD_Struct;
+
 typedef struct ZM5202_Write_Struct_
 {
 	uint8_t b0;
@@ -39,6 +36,7 @@ typedef struct ZM5202_Write_Struct_
 	uint8_t b2;
 
 } ZM5202_Write_Struct;
+
 typedef union ZM_5205_CMD_
 {
 	ZM5202_CMD_Struct GneralCmd;
